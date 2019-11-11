@@ -1,51 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   second_strdup.c                                    :+:      :+:    :+:   */
+/*   do_op.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achaprak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 00:09:37 by achaprak          #+#    #+#             */
-/*   Updated: 2019/11/09 00:23:30 by achaprak         ###   ########.fr       */
+/*   Created: 2019/11/08 23:40:52 by achaprak          #+#    #+#             */
+/*   Updated: 2019/11/09 00:00:57 by achaprak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 
-int	ft_strlen(char *str)
+int		main(int argc, char **argv)
 {
-	int i;
-   
-	i = 0;
-	while (str[i] != '\0')
-		++i;
-	return (i);
-}
-
-char	*ft_strdup(char *src)
-{
-	int i;
-	int len;
-
-	i = 0;
-	len = ft_strlen(src);
-	char *new = malloc(sizeof(char) * (len + 1));
-
-	while (src[i] != '\0')
+	if (argc == 4)
 	{
-		new[i] = src[i];
-		++i;
+		if (*argv[2] == '+')
+			printf("%d", atoi(argv[1]) + atoi(argv[3]));
+		else if (*argv[2] == '-')
+			printf("%d", atoi(argv[1]) - atoi(argv[3]));
+		else if (*argv[2] == '*')
+			printf("%d", atoi(argv[1]) * atoi(argv[3]));
+		else if (*argv[2] == '/')
+			printf("%d", atoi(argv[1]) / atoi(argv[3]));
+		else if (*argv[2] == '%')
+			printf("%d", atoi(argv[1]) % atoi(argv[3]));
 	}
-	new[i] = '\0';
-
-	return (new);
-}
-
-int		main(void)
-{
-	char s[] = "Hello world!";
-	printf("%s", ft_strdup(s));
+	printf("\n");
 	return (0);
 }
-
