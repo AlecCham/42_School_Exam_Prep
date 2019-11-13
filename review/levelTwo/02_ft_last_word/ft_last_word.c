@@ -1,37 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_bits.c                                    :+:      :+:    :+:   */
+/*   ft_last_word.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achaprak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/12 15:40:25 by achaprak          #+#    #+#             */
-/*   Updated: 2019/11/12 19:30:24 by achaprak         ###   ########.fr       */
+/*   Created: 2019/11/12 17:08:02 by achaprak          #+#    #+#             */
+/*   Updated: 2019/11/12 17:21:00 by achaprak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	print_bits(unsigned char octet)
+int	ft_isblank(char c)
 {
-	int i = 0;
-	unsigned char bit;
-
-	while (i < 8)
-	{	
-		bit = (octet << i) & 0x80;
-		if (bit != 0)
-			write(1, "1", 1);
-		else
-			write(1, "0", 1);
-		i++;
-	}
-	write(1, "\n", 1);
+	if (c == ' ' || c == '\t')
+		return (1);
+	return (0);
 }
 
-int		main(void)
+int		main(int ac, char **av)
 {
-	
-	print_bits(2);
+	if (ac == 2)
+	{
+		while (*av[1])
+			av[1]++;
+		av[1]--;
+		while (ft_isblank(*av[1]))
+			av[1]--;
+		while (*av[1] && !ft_isblank(*av[1]))
+			av[1]--;
+		av[1]++;
+		while (*av[1] && !ft_isblank(*av[1]))
+			write(1, av[1]++, 1);
+	}
+	write(1, "\n", 1);
 	return (0);
 }

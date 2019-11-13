@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_bits.c                                    :+:      :+:    :+:   */
+/*   ev_print_bits.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achaprak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/12 15:40:25 by achaprak          #+#    #+#             */
-/*   Updated: 2019/11/12 19:30:24 by achaprak         ###   ########.fr       */
+/*   Created: 2019/11/12 19:25:17 by achaprak          #+#    #+#             */
+/*   Updated: 2019/11/12 19:25:35 by achaprak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,20 @@
 
 void	print_bits(unsigned char octet)
 {
-	int i = 0;
-	unsigned char bit;
+	int shift = 7;
+	unsigned char mask = 1;
+	char out;
 
-	while (i < 8)
-	{	
-		bit = (octet << i) & 0x80;
-		if (bit != 0)
-			write(1, "1", 1);
-		else
-			write(1, "0", 1);
-		i++;
+	while (shift >= 0)
+	{
+		out = ((octet >> shift) & mask) + '0';
+		write(1, &out, 1);
+		--shift;
 	}
-	write(1, "\n", 1);
 }
 
 int		main(void)
 {
-	
 	print_bits(2);
-	return (0);
+	write(1, "\n", 1);
 }

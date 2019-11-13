@@ -1,37 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_bits.c                                    :+:      :+:    :+:   */
+/*   bits.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achaprak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/12 15:40:25 by achaprak          #+#    #+#             */
-/*   Updated: 2019/11/12 19:30:24 by achaprak         ###   ########.fr       */
+/*   Created: 2019/11/12 18:33:26 by achaprak          #+#    #+#             */
+/*   Updated: 2019/11/12 18:40:33 by achaprak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include <stdio.h>
 
-void	print_bits(unsigned char octet)
+void	printBits(size_t const size, void const * const ptr)
 {
-	int i = 0;
-	unsigned char bit;
+	unsigned char *b = (unsigned char*) ptr;
+	unsigned char byte;
+	int i, j;
 
-	while (i < 8)
-	{	
-		bit = (octet << i) & 0x80;
-		if (bit != 0)
-			write(1, "1", 1);
-		else
-			write(1, "0", 1);
-		i++;
+	for (i = size - 1; i >= 0; i--)
+	{
+		for (j = 7; j >= 0; j--)
+		{
+			byte = (b[i] >> j) & 1;
+			printf("%u", byte);
+		}
+		printf(" ");
 	}
-	write(1, "\n", 1);
+	puts("");
 }
 
 int		main(void)
 {
-	
-	print_bits(2);
+	for (int x = 1; x <= 256; x*=2)
+	{
+		printBits(sizeof(x), &x);
+	}
 	return (0);
 }
